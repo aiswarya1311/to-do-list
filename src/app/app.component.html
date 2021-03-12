@@ -1,0 +1,48 @@
+<div class="bgcolor"></div>
+<div class="row m-0 p-0">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <h1 class="text-center mt-5 pt-3 pb-3" style="background-color: #3a4f6e; color: white">
+      To Do List
+    </h1>
+    <hr />
+
+    <div class="input-group mb-3">
+      <input type="text" placeholder="Type here" class="form-control" [(ngModel)]="newItem" />
+      <i class="bi bi-plus-circle pl-2 pr-2 pt-1 pb-1" style="
+          font-size: 22px;
+          font-weight: 700;
+          background-color: #7a9da1;
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+        " (click)="onSubmit()"></i>
+    </div>
+
+    <hr />
+
+    <div *ngFor="let item of listItems | async">
+      <div *ngIf="!item.val.isDone" class="form-control"
+        style="border-radius: 20px; box-shadow: 2px 2px rgb(231, 231, 231); margin-bottom: 8px;">
+        <input type="checkbox" [checked]="item.val.isDone" (change)="checkValue($event, item.key)" />&nbsp;
+        <span [ngClass]="item.val.isDone == false ? 'null' : 'strikethrough'">{{
+          item.val.content
+          }}</span>
+        &nbsp;
+        <i class="bi bi-trash float-right" style="color: #008080" (click)="onDelete(item.key)"></i>
+      </div>
+    </div>
+
+    <div *ngFor="let item of listItems | async">
+      <div *ngIf="item.val.isDone" class="form-control"
+        style="border-radius: 20px; box-shadow: 2px 2px rgb(231, 231, 231); margin-bottom: 8px;">
+        <input type="checkbox" [checked]="item.val.isDone" (change)="checkValue($event, item.key)" />&nbsp;
+        <span [ngClass]="item.val.isDone == false ? 'null' : 'strikethrough'">{{
+          item.val.content
+          }}</span>
+        &nbsp;
+        <i class="bi bi-trash float-right" style="color: #008080" (click)="onDelete(item.key)"></i>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4"></div>
+</div>
